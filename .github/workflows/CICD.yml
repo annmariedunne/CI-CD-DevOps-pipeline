@@ -1,4 +1,4 @@
-# This workfloe demonstrates how your can use various environments (development, staging, production) in github.
+# This workflow demonstrates how your can use various environments (development, staging, production) in github.
 
 name: CI + CD demo pipeline
 
@@ -17,32 +17,34 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
       - name: Code_scanning
         run: echo Imagine we are linting and scanning our code here
       - name: Compile
+        run: echo Imagine we are compiling our code here
+      - name: Test
         run: echo Imagine we are testing our code here
       - name: ChecksComplete
         run: echo Checks complete code built successfully
 
     # Build and test have completed successfully
 
-# Define a deploy to development environment job
-DeployDev:
-  name: Deploy to Development
-  # Job runs only if the event is a pull request
-  if: github.event_name == 'pull_request'
-  # The job needs the build to pass first
-  needs: [ Build ]
-  runs-on: ubuntu-latest
-  # Define some environment variables
-  environment:
-    # The environment name must match the environment name in the repository
-    name: Development
-    url: 'http://dev.myapp.com'
-  steps:
-    - name: Deploy
-      run: echo Your code is being deployed to http://dev.myapp.com
+  # Define a deploy to development environment job
+  DeployDev:
+    name: Deploy to Development
+    # Job runs only if the event is a pull request
+    if: github.event_name == 'pull_request'
+    # The job needs the build job to pass first
+    needs: [ Build ]
+    runs-on: ubuntu-latest
+    # Define some environment variables
+    environment:
+      # The environment name must match the environment name in the repository
+      name: Development
+      url: 'http://dev.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo Your code is being deployed to http://dev.myapp.com
 
   # Our deployment to staging environment
   DeployStaging:
@@ -68,4 +70,4 @@ DeployDev:
       url: 'http://www.myapp.com'
     steps:
       - name: Deploy
-        run: echo I am deploying tp production
+        run: echo I am deploying to production
