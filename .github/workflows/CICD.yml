@@ -2,7 +2,7 @@
 
 name: CI + CD demo pipeline
 
-# Define when the workflow should run. On a push to main, a PR to main or manualle with workflow_dispatch
+# Define when the workflow should run. On a push to main, a PR to main or manually with workflow_dispatch
 on: 
   push:
     branches: [ main ]
@@ -26,8 +26,8 @@ jobs:
         run: echo Imagine we are testing our code here
       - name: ChecksComplete
         run: echo Checks complete code built successfully
-
-    # Build and test have completed successfully
+  
+  # Build and test have completed successfully
 
   # Define a deploy to development environment job
   DeployDev:
@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: Deploy
         run: echo Your code is being deployed to http://dev.myapp.com
-
+  
   # Our deployment to staging environment
   DeployStaging:
     name: Deploy to Staging
@@ -59,7 +59,7 @@ jobs:
     steps:
     - name: Deploy
       run: echo I am deploying to staging http://test.myapp.com
-
+  
   # Deploy to production environment
   DeployProduction:
     name: Deploy to Production
