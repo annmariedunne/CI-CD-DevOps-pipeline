@@ -26,9 +26,9 @@ jobs:
         run: echo Imagine we are testing our code here
       - name: ChecksComplete
         run: echo Checks complete code built successfully
+    
+    # Build and test have completed successfully
   
-  # Build and test have completed successfully
-
   # Define a deploy to development environment job
   DeployDev:
     name: Deploy to Development
